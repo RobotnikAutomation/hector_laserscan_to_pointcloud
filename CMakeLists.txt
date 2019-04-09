@@ -34,3 +34,8 @@ add_executable(laserscan_to_pointcloud_node src/laserscan_to_pointcloud_node.cpp
 target_link_libraries(laserscan_to_pointcloud_node ${Boost_LIBRARIES} ${catkin_LIBRARIES} )
 add_dependencies(laserscan_to_pointcloud_node ${catkin_EXPORTED_TARGETS})
 
+install(TARGETS laserscan_to_pointcloud_node
+   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
