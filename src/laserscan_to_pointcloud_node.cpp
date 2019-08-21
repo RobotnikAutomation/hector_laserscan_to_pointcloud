@@ -52,6 +52,8 @@ public:
 
     filter_chain_.configure("scan_filter_chain", pnh_);
 
+    pnh_.param("publish_empty_clouds", publish_empty_clouds_, false);
+
     pnh_.param("use_high_fidelity_projection", p_use_high_fidelity_projection_, false);
 
     if (p_use_high_fidelity_projection_){
@@ -113,7 +115,7 @@ public:
       projector_.projectLaser(*scan_to_convert, cloud2_, p_max_range_, laser_geometry::channel_option::Intensity);
     }
 
-    if (cloud2_.data.size() > 0){
+    if (publish_empty_clouds_ or (cloud2_.data.size() > 0)){
       point_cloud2_pub_.publish(cloud2_);
     }
   }
@@ -138,6 +140,8 @@ protected:
   sensor_msgs::LaserScan scan_filtered_;
   
   filters::FilterChain<sensor_msgs::LaserScan> filter_chain_;
+
+  bool publish_empty_clouds_;
 };
 
 int main(int argc, char** argv)
